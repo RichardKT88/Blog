@@ -1,0 +1,25 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IList<Blog.Models.Post>
+<table>
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Resumo</th>
+            <th>Categoria</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.Titulo</td>
+                <td>@p.Resumo</td>
+                <td>@p.Categoria</td>
+            </tr>
+        }
+    </tbody>
+</table>
