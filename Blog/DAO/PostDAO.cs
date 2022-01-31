@@ -59,5 +59,16 @@ namespace Blog.DAO
                 contexto.SaveChanges();
             }
         }
+
+        internal void Publicado(int id)
+        {
+            using (BlogContext contexto = new BlogContext())
+            {
+                Post post = contexto.Posts.Find(id);
+                post.Publicado = true;
+                post.DataPublicacao = DateTime.Now;
+                contexto.SaveChanges();
+            }
+        }
     }
 }
