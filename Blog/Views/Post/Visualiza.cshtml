@@ -4,20 +4,35 @@
 @{
 }
 @model Blog.Models.Post
-<div>
-    <form action="/Post/EditaPost" method="post">
-        <input type="hidden" name="id" value="@Model.Id" />
-        <label>
-            Título : <input name='titulo' value="@Model.Titulo" />
-        </label>
-        <label>
-            Resumo : <input name='resumo' value="@Model.Resumo" />
-        </label>
-        <label>
-            Categoria : <input name='categoria' value="@Model.Categoria" />
-        </label>
-        <input type="hidden" name="publicado" value="@Model.Publicado.ToString()" />
-        <input type="hidden" name="dataPublicado" value="@Model.DataPublicacao" />
-        <button type="submit">Cadastrar</button>
-    </form>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edita Post</title>
+</head>
+<body>
+    <div>
+        <form action="/Post/EditaPost" method="post">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <label>
+                Título : <input name='titulo' value="@Model.Titulo" maxlength="50" required/>
+            </label>
+            <label>
+                Resumo : <input name='resumo' value="@Model.Resumo" />
+            </label>
+            <label>
+                Categoria : <input name='categoria' value="@Model.Categoria" required/>
+            </label>
+            <input type="hidden" name="publicado" value="@Model.Publicado.ToString()" />
+            <input type="hidden" name="dataPublicado" value="@Model.DataPublicacao" />
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+    <script src="~/js~/js/jquery.validate.min.js"></script>
+    <script>
+        $("form").validate();
+    </script>
+</body>
+</html>
+

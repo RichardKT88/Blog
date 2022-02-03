@@ -6,10 +6,10 @@ namespace Blog.Controllers
 {
     public class PostController : Controller
     {
-        
+
         public PostController()
         {
-            
+
         }
         public IActionResult Index()
         {
@@ -20,9 +20,10 @@ namespace Blog.Controllers
 
         public IActionResult Novo()
         {
-            return View();
+            var model = new Post();
+            return View(model);
         }
-        public IActionResult Categoria([Bind(Prefix = "id")] string categoria) 
+        public IActionResult Categoria([Bind(Prefix = "id")] string categoria)
         {
             PostDAO dao = new PostDAO();
             IList<Post> lista = dao.FiltraPorCategoria(categoria);
@@ -31,29 +32,43 @@ namespace Blog.Controllers
         [HttpPost]
         public IActionResult Adiciona(Post post)
         {
-            PostDAO dao = new PostDAO();
-            dao.Adiciona(post);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                PostDAO dao = new PostDAO();
+                dao.Adiciona(post);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("Novo", post);
+            }
         }
-        //[HttpDelete]
+        [HttpDelete]
         public IActionResult RemovePost(int id)
         {
             PostDAO dao = new PostDAO();
             dao.Remove(id);
             return RedirectToAction("Index");
         }
-        public IActionResult Visualiza(int id) 
+        public IActionResult Visualiza(int id)
         {
             PostDAO dao = new PostDAO();
             Post post = dao.BuscaPorId(id);
             return View(post);
         }
         [HttpPost]
-        public IActionResult EditaPost(Post post) 
+        public IActionResult EditaPost(Post post)
         {
-            PostDAO dao = new PostDAO();
-            dao.Atualiza(post);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                PostDAO dao = new PostDAO();
+                dao.Atualiza(post);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("Visualiza", post);
+            }
         }
 
         public IActionResult PublicaPost(int id)

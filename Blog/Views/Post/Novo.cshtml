@@ -3,15 +3,32 @@
 *@
 @{
 }
+@model Blog.Models.Post
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Novo Post</title>
+</head>
 <form action="/Post/Adiciona" method="post">
     <label>
-        Titulo: <input name="titulo"/>
+        Titulo: <input name="titulo" value="@Model.Titulo" maxlength="50" required />
     </label>
+    @Html.ValidationMessage("titulo")
     <label>
-        Resumo: <input name="resumo"/>
+        Resumo: <input name="resumo" value="@Model.Resumo" required />
     </label>
+    @Html.ValidationMessage("resumo")
     <label>
-        Categoria: <input name="categoria"/>
+        Categoria: <input name="categoria" value="@Model.Categoria" />
     </label>
-    <button type="submit" >Cadastrar</button>
+    @Html.ValidationMessage("categoria")
+    <button type="submit">Cadastrar</button>
 </form>
+<script src="~/js/jquery-3.6.0.min.js"></script>
+<script src="~/js~/js/jquery.validate.min.js"></script>
+<script>
+    $("form").validate();
+</script>
+
+</html>
