@@ -60,7 +60,7 @@ namespace Blog.DAO
             }
         }
 
-        internal void Publicado(int id)
+        public void Publicado(int id)
         {
             using (BlogContext contexto = new BlogContext())
             {
@@ -68,6 +68,18 @@ namespace Blog.DAO
                 post.Publicado = true;
                 post.DataPublicacao = DateTime.Now;
                 contexto.SaveChanges();
+            }
+        }
+
+        public IList<string> ListaCategoriasQueContemTermo(string termo)
+        {
+            using (var contexto = new BlogContext())
+            {
+                return contexto.Posts
+                    .Where(p => p.Categoria.Contains(termo))
+                    .Select(p => p.Categoria)
+                    .Distinct()
+                    .ToList();
             }
         }
     }
