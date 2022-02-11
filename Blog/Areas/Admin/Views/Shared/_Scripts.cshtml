@@ -1,0 +1,22 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@section Scripts{
+<script src="~/js/jquery-3.6.0.min.js"></script>
+<script src="~/js~/js/jquery.validate.min.js"></script>
+<script src="~/js~/js/jquery.validate.unobtrusive.js"></script>
+<script src="~/js/jquery-ui.min.js"></script>
+<script>
+    $("input[name='Categoria']").autocomplete({
+        source: function(request, response){
+            $.post(
+                "@Url.Action("CategoriaAutoComplete")",
+                {termoDigitado: request.termoDigitado },
+                function (data) {
+                    response(data);
+                }
+            )
+        }
+    });
+</script>   
+}

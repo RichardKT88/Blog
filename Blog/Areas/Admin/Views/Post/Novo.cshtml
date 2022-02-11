@@ -1,0 +1,38 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@* HTML Helper*@
+@* <div>
+    @using (Html.BeginForm("Adiciona", "Post"))
+    {
+    @Html.LabelFor(p => p.Titulo)
+    @Html.TextBoxFor(p => p.Titulo)
+    @Html.ValidationMessageFor(p => p.Titulo)
+
+    @Html.LabelFor(p => p.Resumo)
+    @Html.TextBoxFor(p => p.Resumo)
+    @Html.ValidationMessageFor(p => p.Resumo)
+
+    @Html.LabelFor(p => p.Categoria)
+    @Html.TextBoxFor(p => p.Categoria)
+    @Html.ValidationMessageFor(p => p.Categoria)
+
+    <button type="submit">Cadastrar</button>
+    }
+    </div>*@
+@*Tag Helper*@
+@model Post
+<div>
+    <form asp-controller="Post" asp-action="Adiciona" method="post">
+        @Html.EditorFor(p => p)
+        <button class="btn btn-primary" type="submit">Cadastrar</button>
+    </form>
+</div>
+@section Scripts{
+     @Html.Partial("_Scripts")
+}
+
+

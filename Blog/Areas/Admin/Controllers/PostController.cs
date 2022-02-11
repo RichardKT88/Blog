@@ -2,8 +2,9 @@
 using Blog.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Blog.Controllers
+namespace Blog.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class PostController : Controller
     {
 
@@ -43,7 +44,6 @@ namespace Blog.Controllers
                 return View("Novo", post);
             }
         }
-        [HttpDelete]
         public IActionResult RemovePost(int id)
         {
             PostDAO dao = new PostDAO();

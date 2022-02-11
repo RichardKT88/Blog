@@ -1,28 +1,27 @@
 ﻿using Blog.Infra;
 using Blog.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
 
 namespace Blog.DAO
 {
     public class PostDAO
     {
-        public IList<Post> Lista() 
+        public IList<Post> Lista()
         {
-            using (BlogContext contexto = new BlogContext()) 
+            using (BlogContext contexto = new BlogContext())
             {
                 var lista = contexto.Posts.ToList();
                 return lista;
             }
         }
-        public void Adiciona(Post post) 
+        public void Adiciona(Post post)
         {
-            using (BlogContext contexto = new BlogContext()) 
+            using (BlogContext contexto = new BlogContext())
             {
-               contexto.Posts.Add(post);
-               contexto.SaveChanges();
+                contexto.Posts.Add(post);
+                contexto.SaveChanges();
             }
-            
+
         }
         public IList<Post> FiltraPorCategoria(string categoria)
         {
@@ -80,6 +79,15 @@ namespace Blog.DAO
                     .Select(p => p.Categoria)
                     .Distinct()
                     .ToList();
+            }
+        }
+
+        public IList<Post> ListaPublicados()
+        {
+            using (BlogContext contexto = new BlogContext())
+            {
+                return contexto.Posts.Where(p => p.Publicado).
+                    OrderByDescending(p => p.DataPublicacao).ToList();
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿using Blog.Models;
+﻿using Blog.DAO;
+using Blog.Infra;
+using Blog.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,27 +8,23 @@ namespace Blog.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
 
         public IActionResult Index()
         {
-            return View();
+            PostDAO dao = new PostDAO();
+            IList<Post> publicados = dao.ListaPublicados();
+            return View(publicados);
         }
 
-        public IActionResult Privacy()
+        public IList<Post> BuscaPeloTermo(string termo) 
         {
-            return View();
-        }
+            using (var contexto = new BlogContext())
+            {
+                return contexto.Posts
+                    .Where(p => (p.Publicado) && (p.Titulo.Contains(termo) || p.Resumo.Contains(termo)))
+                    .ToList();
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Blog.Infra
 {
     public class BlogContext : DbContext
     {
-        public DbSet<Post> Posts { get; set; }
+        public DbSet<Post>? Posts { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
         {
             var builder = new ConfigurationBuilder()

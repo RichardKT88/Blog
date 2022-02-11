@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@*  <div>
+    <form action="/Post/EditaPost" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <label>
+    Título : <input name='titulo' value="@Model.Titulo" maxlength="50" required/>
+    </label>
+    <label>
+    Resumo : <input name='resumo' value="@Model.Resumo" />
+    </label>
+    <label>
+    Categoria : <input name='categoria' value="@Model.Categoria" required/>
+    </label>
+    <input type="hidden" name="publicado" value="@Model.Publicado.ToString()" />
+    <input type="hidden" name="dataPublicado" value="@Model.DataPublicacao" />
+    <button type="submit">Cadastrar</button>
+    </form>
+    </div>*@
+@*Opcional alterar para ficar parecido com o Novo.cshtml*@
+
+@model Post
+<form asp-controller="Post" asp-action="EditaPost" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="Publicado" />
+    <input type="hidden" asp-for="DataPublicacao" />
+    @Html.EditorFor(p => p)
+    <button class="btn btn-primary" type="submit">Atualizar</button>
+</form>
+@section Scripts{
+    @Html.Partial("_Scripts")
+}
+
