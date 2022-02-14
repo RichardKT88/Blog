@@ -1,7 +1,16 @@
+using Blog.DAO;
+using Blog.Infra;
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<BlogContext>(
+        options => options.UseSqlServer(builder.Configuration.GetConnectionString("Blog")));
+builder.Services.AddTransient<PostDAO>();
+        
 
 var app = builder.Build();
 

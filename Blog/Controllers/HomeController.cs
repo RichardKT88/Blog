@@ -8,23 +8,23 @@ namespace Blog.Controllers
 {
     public class HomeController : Controller
     {
-
-        public IActionResult Index()
+        private PostDAO dao;
+        public HomeController(PostDAO dao)
         {
-            PostDAO dao = new PostDAO();
+            this.dao = dao;
+        }
+        
+        public ActionResult Index()
+        {
             IList<Post> publicados = dao.ListaPublicados();
             return View(publicados);
         }
 
-        public IList<Post> BuscaPeloTermo(string termo) 
+        public ActionResult Busca(string termo)
         {
-            using (var contexto = new BlogContext())
-            {
-                return contexto.Posts
-                    .Where(p => (p.Publicado) && (p.Titulo.Contains(termo) || p.Resumo.Contains(termo)))
-                    .ToList();
-
-            }
+            IList<Post> posts = dao.BuscaPeloTermo(termo);
+            return View("Index", posts);
         }
+       
     }
 }
