@@ -30,6 +30,9 @@ namespace Blog.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("AutorId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Categoria")
                         .HasColumnType("nvarchar(max)");
 
@@ -49,6 +52,8 @@ namespace Blog.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AutorId");
 
                     b.ToTable("Posts");
                 });
@@ -76,6 +81,22 @@ namespace Blog.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("Blog.Models.Post", b =>
+                {
+                    b.HasOne("Blog.Models.Usuario", "Autor")
+                        .WithMany("Posts")
+                        .HasForeignKey("AutorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Autor");
+                });
+
+            modelBuilder.Entity("Blog.Models.Usuario", b =>
+                {
+                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }

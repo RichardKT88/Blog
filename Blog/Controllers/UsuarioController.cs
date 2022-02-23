@@ -1,4 +1,5 @@
 ﻿using Blog.DAO;
+using Blog.Extensions;
 using Blog.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -18,20 +19,45 @@ namespace Blog.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Autentica(LoginViewModel model)
+        [HttpGet]
+        public IActionResult Novo()
         {
-            Usuario usuario = this.usuarioDAO.Busca(model.LoginName, model.Password);
-            if (usuario != null) 
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Autentica(LoginViewModel model)
+        {
+            if (ModelState.IsValid) 
             {
-                HttpContext.Session.SetString("usuario", JsonConvert.SerializeObject(usuario));
-                return RedirectToAction("Index", "Post", new { area = "Admin" });
-            }
-            else
-            {
-                ModelState.AddModelError("login Inválido", "Login ou senha incorretos");
-            }
+                Usuario usuario = this.usuarioDAO.Busca(model.LoginName, model.Password);
+                if (usuario != null)
+                {
+                    HttpContext.Session.Set<Usuario>("usuario", usuario);
+                    return RedirectToAction("Index", "Post", new { area = "Admin" });
+                }
+                else
+                {
+                    ModelState.AddModelError("login Inválido", "Login ou senha incorretos");
+                }
+            }           
             return View("Login", model);
+        }
+        [HttpPost]
+        public IActionResult Cadastra(RegistroViewModel model) 
+        {
+            if (ModelState.IsValid) 
+            {
+                Usuario usuario = new Usuario()
+                {
+                    Nome = model.LoginName,
+                    Email = model.Email,
+                    Senha = model.Senha,
+                };
+                usuarioDAO.Adiciona(usuario);
+                return RedirectToAction("Login");
+            }
+            return View("Novo", model);
         }
     }
 }
