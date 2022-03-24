@@ -2,7 +2,6 @@
 using Blog.Extensions;
 using Blog.Models;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace Blog.Controllers
 {
@@ -30,7 +29,7 @@ namespace Blog.Controllers
         {
             if (ModelState.IsValid) 
             {
-                Usuario usuario = this.usuarioDAO.Busca(model.LoginName, model.Password);
+                Usuario usuario = usuarioDAO.Busca(model.LoginName, model.Password);
                 if (usuario != null)
                 {
                     HttpContext.Session.Set<Usuario>("usuario", usuario);

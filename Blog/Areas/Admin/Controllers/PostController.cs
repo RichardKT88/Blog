@@ -3,7 +3,6 @@ using Blog.Extensions;
 using Blog.Filters;
 using Blog.Models;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace Blog.Areas.Admin.Controllers
 {

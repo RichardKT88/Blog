@@ -1,7 +1,6 @@
 using Blog.DAO;
 using Blog.Infra;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +11,7 @@ builder.Services.AddDbContext<BlogContext>(
 builder.Services.AddTransient<PostDAO>();
 builder.Services.AddTransient<UsuarioDAO>();
 builder.Services.AddSession();
+builder.Services.AddMvc();
         
 
 var app = builder.Build();
@@ -23,9 +23,10 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseSession();
 
 app.UseRouting();
 

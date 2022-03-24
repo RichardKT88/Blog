@@ -1,6 +1,5 @@
 ﻿using Blog.Infra;
 using Blog.Models;
-using System.Linq;
 
 namespace Blog.DAO
 {
