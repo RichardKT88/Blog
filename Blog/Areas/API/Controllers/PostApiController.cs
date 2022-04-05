@@ -40,5 +40,37 @@ namespace Blog.Areas.API.Controllers
             return CreatedAtAction("BuscaPostsPorId", new { Id = post.Id }, post);
 
         }
+
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult AtualizaPost(int id, [FromBody] Post post)
+        {
+            Post postBanco = _dao.BuscaPorId(id);
+            if(postBanco == null)
+            {
+                return NotFound();
+            }
+            postBanco.Titulo = post.Titulo;
+            postBanco.Resumo = post.Resumo;
+            postBanco.Categoria = post.Categoria;
+            postBanco.Publicado = post.Publicado;
+            postBanco.DataPublicacao = post.DataPublicacao;
+            _dao.Atualiza(postBanco);
+            return NoContent();
+
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult DeletaPost(int id) 
+        {
+            if(_dao.BuscaPorId(id) == null)
+            {
+                return NotFound();
+            }
+            _dao.Remove(id);
+            return NoContent();
+        }
+
     }
 }
