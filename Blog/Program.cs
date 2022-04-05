@@ -10,7 +10,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<BlogContext>(
         options => options.UseSqlServer(builder.Configuration.GetConnectionString("Blog")));
 builder.Services.AddTransient<PostDAO>();
-        
+builder.Services.AddMvc();
 
 var app = builder.Build();
 
