@@ -6,9 +6,10 @@
         public CategoriaComQuantidadeViewModel(IList<Post> posts)
         {
             categoriaPorQuantidade = new Dictionary<string, int>();
+            
             foreach (Post post in posts)
             {
-                string categoria = post.Categoria;
+                string categoria = post.Categoria.Trim();
                 if (categoriaPorQuantidade.ContainsKey(categoria))
                 {
                     int quantidade = categoriaPorQuantidade[categoria];
