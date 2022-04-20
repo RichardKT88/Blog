@@ -25,7 +25,7 @@
                 <td>
                     @if (p.Publicado)
                     {
-                        @Html.Raw(string.Format("{0:dd/mm/yyyy}", p.DataPublicacao))
+                        @Html.Raw(string.Format("{0:d}", p.DataPublicacao))
                     }
                     else
                     {

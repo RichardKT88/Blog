@@ -1,0 +1,15 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model CategoriaComQuantidadeViewModel
+<ul>
+    @foreach(var categoria in Model.GetCategorias())
+    {
+        <li>
+            <a href="/Home/Categoria/@categoria">@categoria</a>
+            &nbsp;<span class="badge">@Model.GetQuantidadeDePostDa(categoria)</span>
+        </li>
+    }
+</ul>
+@{
+}

@@ -61,7 +61,7 @@ namespace Blog.DAO
 
             Post post = contexto.Posts.Find(id);
             post.Publicado = true;
-            post.DataPublicacao = DateTime.Now;
+            post.DataPublicacao = DateTime.UtcNow.ToLocalTime();
             contexto.SaveChanges();
 
         }

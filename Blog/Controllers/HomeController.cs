@@ -8,21 +8,27 @@ namespace Blog.Controllers
 {
     public class HomeController : Controller
     {
-        private PostDAO dao;
+        private PostDAO _dao;
         public HomeController(PostDAO dao)
         {
-            this.dao = dao;
+            _dao = dao;
         }
         
         public ActionResult Index()
         {
-            IList<Post> publicados = dao.ListaPublicados();
+            IList<Post> publicados = _dao.ListaPublicados();
             return View(publicados);
         }
 
         public ActionResult Busca(string termo)
         {
-            IList<Post> posts = dao.BuscaPeloTermo(termo);
+            IList<Post> posts = _dao.BuscaPeloTermo(termo);
+            return View("Index", posts);
+        }
+
+        public IActionResult Categoria([Bind(Prefix ="id")] string categoria) 
+        {
+            IList<Post> posts = _dao.FiltraPorCategoria(categoria);
             return View("Index", posts);
         }
        
